@@ -1,5 +1,7 @@
 bin/
 obj/
+outputs/
+tmp/
 .vs/
 *.user
 *.suo

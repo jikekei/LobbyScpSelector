@@ -20,7 +20,7 @@ namespace LobbyScpSelector
         public override string Name => "LobbyScpSelector";
         public override string Description => "独立开始大厅与 SCP 自选插件，支持指令配置出生点及 SCP 自选硬币位置并自动写入配置文件";
         public override string Author => "LobbyScpSelector";
-        public override Version Version => new Version(1, 0, 0);
+        public override Version Version => new Version(0, 18, 0);
         public override Version RequiredApiVersion => new Version(1, 1, 7);
 
         public string ConfigPath => ConfigurationLoader.GetConfigPath(this, ConfigFileName, false);
