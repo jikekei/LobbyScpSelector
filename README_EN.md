@@ -10,12 +10,12 @@
 
 ![In-Game Lobby & SCP Selection Preview](assets/lobby-preview.png)
 
-## Highlights
+## Features
 
-- **Zero Configuration Needed**: Ships with ready-to-use default coordinates for the lobby spawn, all 7 SCP coin spots, and `TextToy` label rotations—install and play right away.
-- **Zero Third-Party Hint Dependencies**: Lobby countdowns and selection feedback use LabAPI's native `Player.SendHint` directly (no `EXILED` or `HintServiceMeow`).
-- **Auto `TextToy` Coin Labels**: Automatically spawns role labels above each coin. When repositioned in-game via `scpcoin`, label facing matches the player's horizontal view and replaces the old spot in `config.yml` automatically.
-- **Fair Round-Start Priority**: Returns lobby players to `Spectator` before spawning, prioritizes pre-selected players via Harmony, avoids duplicate SCPs until the pool is exhausted, and blocks `SCP-079` below `7` players.
+- Ships with default coordinates for the lobby spawn, all 7 SCP coins, and label rotations, so it works out of the box without any config edits.
+- Uses the game's built-in `Player.SendHint` directly, with no EXILED or HintServiceMeow required.
+- Spawns a `TextToy` role label above each coin. Moving a coin with `scpcoin` rotates the label to match where you are looking, removes the old spot, and saves `config.yml` right away.
+- Prioritizes players who picked a coin when the round starts, avoids duplicate SCPs until every role is taken, and disables `SCP-079` below `7` players by default.
 
 ---
 
