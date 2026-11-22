@@ -25,7 +25,11 @@ Only requires **LabAPI (`>= 1.1.7`)** and **`0Harmony.dll`**.
 
 1. Place `LobbyScpSelector.dll` into your server's `LabAPI/plugins/global/` (or port-specific plugins directory).
 2. Ensure `0Harmony.dll` is in the LabAPI `dependencies/` folder.
-3. Restart the server—default `config.yml` is generated automatically and ready to use with no manual editing.
+3. Restart the server—default English `config.yml` and `translations.yml` are generated automatically in the plugin config folder.
+
+### Localization (`translations.yml`)
+
+All player-facing in-game strings live in `translations.yml` (generated alongside `config.yml`, English by default). A ready-to-use Simplified Chinese pack is included under [`translations/zh-CN/`](translations/zh-CN/): copy [translations.yml](translations/zh-CN/translations.yml) (and optionally [config.yml](translations/zh-CN/config.yml)) over the generated files and restart the server.
 
 ---
 
@@ -84,7 +88,7 @@ coin_label:
   display_size: { x: 1000, y: 1000 }
   face_lobby_spawn: true
   default_rotation: { x: 0, y: 0, z: 0 }
-  text_format: "-SCP自选-\r\n{scp}"
+  text_format: ""
 ```
 
 Build from source (`.NET Framework 4.8.1` / `x64`):

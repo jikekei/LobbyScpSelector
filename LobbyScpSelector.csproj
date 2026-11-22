@@ -62,5 +62,7 @@
   <ItemGroup>
     <None Include="README.md" />
     <None Include="README_EN.md" />
+    <None Include="translations\zh-CN\config.yml" />
+    <None Include="translations\zh-CN\translations.yml" />
   </ItemGroup>
 </Project>

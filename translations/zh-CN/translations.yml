@@ -1,0 +1,22 @@
+# 回合倒计时暂停时显示的状态文字。
+lobby_state_paused: "<color=#FACC15>回合已暂停</color>"
+# 回合即将开始时显示的状态文字。
+lobby_state_starting: "<color=#4ADE80>回合即将开始</color>"
+# 回合倒计时期间显示的状态文字。占位符: {timer}。
+lobby_state_countdown: "<color=#38BDF8>{timer} 秒后开始</color>"
+# 大厅 HUD 顶部第一行格式。占位符: {count}, {state}。
+lobby_header_format: "<size=34><b><color=#7CC6FE>{count}</color> <color=#F8FAFC>名玩家已连接</color>  <color=#64748B>|</color>  {state}</b></size>"
+# 大厅 HUD 底部操作提示行。
+lobby_tip_text: "<size=26><color=#93C5FD>捡起角色前的硬币即可申请对应 SCP</color></size>"
+# 玩家已选择 SCP 时的状态行格式。占位符: {scp}, {count}。
+selection_current_format: "<size=30><color=#E2E8F0>当前自选：</color><b><color=#FF6B6B>{scp}</color></b>  <color=#64748B>|</color>  <color=#CBD5E1>同选人数：</color><b><color=#FDE047>{count}</color></b></size>"
+# 玩家尚未选择任何 SCP 时的状态行文字。
+selection_none_text: "<size=30><color=#CBD5E1>当前自选：</color><color=#94A3B8>暂未选择 SCP</color></size>"
+# 在线人数低于最低限制时尝试拾取 SCP-079 硬币的提示。占位符: {min_players}。
+scp079_min_players_message: "<size=32><b><color=#F87171>人数少于 {min_players} 人时无法自选 SCP-079</color></b></size>"
+# 玩家重复拾取已选 SCP 硬币时的提示。占位符: {scp}。
+already_selected_message: "<size=32><b><color=#FACC15>您已经选择了 {scp}</color></b></size>"
+# 玩家成功选择 SCP 时的提示。占位符: {scp}, {count}。
+selected_success_message: "<size=32><b><color=#4ADE80>成功选择 {scp}</color></b></size>\n<size=26><color=#FDE047>当前同选该角色的玩家数量：{count}</color></size>"
+# 当 config.yml 中 coin_label.text_format 留空时，硬币上方 TextToy 默认显示的文字模板。占位符: {scp}, {role}。
+coin_label_text_format: "-SCP自选-\n{scp}"

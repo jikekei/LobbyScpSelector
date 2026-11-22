@@ -4,6 +4,7 @@ using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.Arguments.ServerEvents;
 using LabApi.Events.Handlers;
 using LabApi.Features.Wrappers;
+using LobbyScpSelector.Config;
 using LobbyScpSelector.ScpSelection;
 using LobbyScpSelector.Utils;
 using MEC;
@@ -62,12 +63,15 @@ namespace LobbyScpSelector.Lobby
             if (player == null || player.IsDestroyed || GameCore.RoundStart.singleton == null)
                 return;
 
+            TranslationConfig translations = LobbyScpSelectorPlugin.Instance?.Translations ?? new TranslationConfig();
+            translations.EnsureDefaults();
+
             int timer = GameCore.RoundStart.singleton.NetworkTimer;
             string state = timer == -2
-                ? "<color=#FACC15>回合已暂停</color>"
+                ? translations.LobbyStatePaused
                 : timer == -1
-                    ? "<color=#4ADE80>回合即将开始</color>"
-                    : $"<color=#38BDF8>{timer} 秒后开始</color>";
+                    ? translations.LobbyStateStarting
+                    : translations.LobbyStateCountdown.Replace("{timer}", timer.ToString());
 
             string transient = string.Empty;
             if (Messages.TryGetValue(player, out TransientMessage message))
@@ -78,9 +82,13 @@ namespace LobbyScpSelector.Lobby
                     Messages.Remove(player);
             }
 
-            string text = $"<size=34><b><color=#7CC6FE>{Player.Count}</color> <color=#F8FAFC>名玩家已连接</color>  <color=#64748B>|</color>  {state}</b></size>\n" +
+            string header = translations.LobbyHeaderFormat
+                .Replace("{count}", Player.Count.ToString())
+                .Replace("{state}", state);
+
+            string text = header + "\n" +
                           ScpSelectionManager.GetSelectionStatusText(player) + "\n" +
-                          "<size=26><color=#93C5FD>捡起角色前的硬币即可申请对应 SCP</color></size>" +
+                          translations.LobbyTipText +
                           transient;
 
             player.SendHint(text, 1.3f);

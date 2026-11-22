@@ -25,7 +25,11 @@
 
 1. 下载 `LobbyScpSelector.dll`（或从源码编译），放入服务端 `LabAPI/plugins/global/`（或指定端口插件目录）。
 2. 确保 `0Harmony.dll` 已放在服务端 LabAPI 的 `dependencies/` 目录。
-3. 重启服务端即可生效，无需额外配置；首次启动会自动生成默认 `config.yml`。
+3. 重启服务端即可生效；首次启动会在配置目录自动生成英文默认 `config.yml` 和 `translations.yml`。
+
+### 切换为简体中文
+
+插件默认生成的 `config.yml`（注释）和 `translations.yml`（游戏内提示文本）均为英文。如需切换为中文界面与中文配置注释，将仓库中的 [translations/zh-CN/translations.yml](translations/zh-CN/translations.yml)（以及可选的 [translations/zh-CN/config.yml](translations/zh-CN/config.yml)）覆盖复制到服务端同插件配置目录后重启即可。
 
 ---
 
@@ -84,7 +88,7 @@ coin_label:
   display_size: { x: 1000, y: 1000 }
   face_lobby_spawn: true
   default_rotation: { x: 0, y: 0, z: 0 }
-  text_format: "-SCP自选-\r\n{scp}"
+  text_format: ""
 ```
 
 从源码构建（`.NET Framework 4.8.1` / `x64`）：

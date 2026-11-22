@@ -29,7 +29,10 @@ namespace LobbyScpSelector.ScpSelection
             Vector3 labelPosition = coinPosition + offset;
             Quaternion rotation = ComputeRotation(role, labelPosition, config, labelConfig);
 
-            string template = labelConfig.TextFormat ?? "-SCP自选-\r\n{scp}";
+            string translationFormat = LobbyScpSelectorPlugin.Instance?.Translations?.CoinLabelTextFormat;
+            string template = !string.IsNullOrEmpty(labelConfig.TextFormat)
+                ? labelConfig.TextFormat
+                : (!string.IsNullOrEmpty(translationFormat) ? translationFormat : "-SCP SELECT-\r\n{scp}");
             string text = template
                 .Replace("{scp}", ScpRoleParser.FormatDisplayName(role))
                 .Replace("{role}", role.ToString());

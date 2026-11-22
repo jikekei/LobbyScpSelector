@@ -38,13 +38,18 @@ namespace LobbyScpSelector.ScpSelection
             if (player == null)
                 return string.Empty;
 
+            TranslationConfig translations = LobbyScpSelectorPlugin.Instance?.Translations ?? new TranslationConfig();
+            translations.EnsureDefaults();
+
             if (SelectedRoles.TryGetValue(player, out RoleTypeId selectedRole))
             {
                 int playerCount = RoleSelectionCounts.TryGetValue(selectedRole, out int count) ? count : 0;
-                return $"<size=30><color=#E2E8F0>当前自选：</color><b><color=#FF6B6B>{ScpRoleParser.FormatDisplayName(selectedRole)}</color></b>  <color=#64748B>|</color>  <color=#CBD5E1>同选人数：</color><b><color=#FDE047>{playerCount}</color></b></size>";
+                return translations.SelectionCurrentFormat
+                    .Replace("{scp}", ScpRoleParser.FormatDisplayName(selectedRole))
+                    .Replace("{count}", playerCount.ToString());
             }
 
-            return "<size=30><color=#CBD5E1>当前自选：</color><color=#94A3B8>暂未选择 SCP</color></size>";
+            return translations.SelectionNoneText;
         }
 
         private static void OnPickingUpItem(PlayerPickingUpItemEventArgs ev)
@@ -61,12 +66,15 @@ namespace LobbyScpSelector.ScpSelection
                 if (!LobbyManager.IsLobby)
                     return;
 
+                TranslationConfig translations = LobbyScpSelectorPlugin.Instance?.Translations ?? new TranslationConfig();
+                translations.EnsureDefaults();
+
                 int min079 = GetMinPlayersForScp079();
                 if (targetRole == RoleTypeId.Scp079 && Player.Count < min079)
                 {
                     LobbyManager.ShowMessage(
                         ev.Player,
-                        $"<size=32><b><color=#F87171>人数少于 {min079} 人时无法自选 SCP-079</color></b></size>",
+                        translations.Scp079MinPlayersMessage.Replace("{min_players}", min079.ToString()),
                         4f);
                     return;
                 }
@@ -77,7 +85,7 @@ namespace LobbyScpSelector.ScpSelection
                     {
                         LobbyManager.ShowMessage(
                             ev.Player,
-                            $"<size=32><b><color=#FACC15>您已经选择了 {ScpRoleParser.FormatDisplayName(targetRole)}</color></b></size>",
+                            translations.AlreadySelectedMessage.Replace("{scp}", ScpRoleParser.FormatDisplayName(targetRole)),
                             3f);
                         return;
                     }
@@ -94,7 +102,9 @@ namespace LobbyScpSelector.ScpSelection
 
                 LobbyManager.ShowMessage(
                     ev.Player,
-                    $"<size=32><b><color=#4ADE80>成功选择 {ScpRoleParser.FormatDisplayName(targetRole)}</color></b></size>\n<size=26><color=#FDE047>当前同选该角色的玩家数量：{curCount + 1}</color></size>",
+                    translations.SelectedSuccessMessage
+                        .Replace("{scp}", ScpRoleParser.FormatDisplayName(targetRole))
+                        .Replace("{count}", (curCount + 1).ToString()),
                     5f);
             }
             catch (Exception ex)

@@ -11,19 +11,24 @@ using LobbyScpSelector.Utils;
 namespace LobbyScpSelector
 {
     /// <summary>
-    /// 开始大厅 + SCP 自选独立 LabAPI 插件入口。
+    /// Standalone LabAPI plugin entry point for the pre-round lobby and SCP coin selector.
     /// </summary>
     public sealed class LobbyScpSelectorPlugin : Plugin<PluginConfig>
     {
+        public const string TranslationFileName = "translations.yml";
+
         public static LobbyScpSelectorPlugin Instance { get; private set; }
 
         public override string Name => "LobbyScpSelector";
-        public override string Description => "独立开始大厅与 SCP 自选插件，支持指令配置出生点及 SCP 自选硬币位置并自动写入配置文件";
+        public override string Description => "Standalone waiting lobby and coin-based SCP selection plugin with in-game coordinate commands and auto-saved configs.";
         public override string Author => "LobbyScpSelector";
-        public override Version Version => new Version(0, 18, 0);
+        public override Version Version => new Version(0, 19, 0);
         public override Version RequiredApiVersion => new Version(1, 1, 7);
 
         public string ConfigPath => ConfigurationLoader.GetConfigPath(this, ConfigFileName, false);
+        public string TranslationPath => ConfigurationLoader.GetConfigPath(this, TranslationFileName, false);
+
+        public TranslationConfig Translations { get; private set; } = new TranslationConfig();
 
         private readonly Stack<Action> _cleanup = new Stack<Action>();
 
@@ -54,18 +59,50 @@ namespace LobbyScpSelector
                 return;
             }
 
+            LoadTranslations();
+
             Instance = this;
             try
             {
                 RegisterModule(LobbyHarmonyPatches.OnEnable, LobbyHarmonyPatches.OnDisable);
                 RegisterModule(LobbyManager.Register, LobbyManager.Unregister);
                 RegisterModule(ScpSelectionManager.Register, ScpSelectionManager.Unregister);
-                PluginLog.Info($"LobbyScpSelector 插件已启用（配置文件: {ConfigPath}）。");
+                PluginLog.Info($"LobbyScpSelector 插件已启用（配置: {ConfigPath}，翻译: {TranslationPath}）。");
             }
             catch
             {
                 Disable();
                 throw;
+            }
+        }
+
+        private void LoadTranslations()
+        {
+            try
+            {
+                if (ConfigurationLoader.TryLoadConfig(this, TranslationFileName, out TranslationConfig loaded, false) &&
+                    loaded != null)
+                {
+                    loaded.EnsureDefaults();
+                    Translations = loaded;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                PluginLog.Warn($"加载翻译配置文件失败，将使用默认英文翻译并尝试重新生成 ({TranslationPath}): {ex.Message}");
+            }
+
+            Translations = new TranslationConfig();
+            Translations.EnsureDefaults();
+
+            try
+            {
+                ConfigurationLoader.TrySaveConfig(this, Translations, TranslationFileName, false);
+            }
+            catch (Exception ex)
+            {
+                PluginLog.Warn($"写入默认翻译配置文件失败 ({TranslationPath}): {ex.Message}");
             }
         }
 

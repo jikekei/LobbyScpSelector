@@ -1,0 +1,104 @@
+# 是否启用开始大厅与 SCP 自选插件。
+is_enabled: true
+# 是否输出调试日志。
+debug: false
+# 大厅出生点世界坐标；可通过 lobbyspawn set 指令自动更新并保存。
+lobby_spawn_position:
+  x: -0.09920526
+  y: 295.3805
+  z: -8.435011
+# SCP 自选硬币缩放倍率（必须大于 0）。
+coin_scale: 17
+# 允许自选及分配 SCP-079 所需的最低在线人数。
+min_players_for_scp079: 7
+# 是否启用开局 SCP 溢出名额分配。
+allow_scp_overflow: true
+# 是否使用默认比例重排的开局阵营队列并优先放置 SCP 槽位。
+use_custom_start_queue: true
+# SCP 自选硬币位置；可通过 scpcoin <scp> 指令设置并自动覆盖保存，删除角色条目可禁用该硬币。
+scp_selection_coin_positions:
+  Scp173:
+    x: -2.656249
+    y: 294.4705
+    z: -12.48828
+  Scp049:
+    x: 2.300781
+    y: 294.7761
+    z: -12.60156
+  Scp096:
+    x: 8.140626
+    y: 294.7
+    z: -12.27734
+  Scp079:
+    x: 3.214844
+    y: 294.4705
+    z: -3.140625
+  Scp3114:
+    x: -2.425783
+    y: 294.4705
+    z: -3.070313
+  Scp106:
+    x: -7.792969
+    y: 294.4705
+    z: -3.53125
+  Scp939:
+    x: 7.660157
+    y: 295.0731
+    z: -3.160156
+# SCP 自选硬币上方文字的自定义欧拉角旋转（度）；使用 scpcoin 指令放置时自动记录为与玩家朝向一致，未配置的角色使用 coin_label 默认策略。
+scp_selection_coin_label_rotations:
+  Scp106:
+    x: 0
+    y: 2.469223
+    z: 0
+  Scp3114:
+    x: 0
+    y: 0.2279663
+    z: 0
+  Scp079:
+    x: 0
+    y: 6.880295
+    z: 0
+  Scp939:
+    x: 0
+    y: 7.347214
+    z: 0
+  Scp096:
+    x: 0
+    y: 180.401
+    z: 0
+  Scp049:
+    x: 0
+    y: 180.2856
+    z: 0
+  Scp173:
+    x: 0
+    y: 182.7411
+    z: 0
+# 硬币上方自动生成的 TextToy 文字标签配置。
+coin_label:
+  # 是否在生成硬币时自动在硬币上方生成 TextToy 文字标签。
+  enabled: true
+  # 文字相对硬币坐标的偏移量（默认正上方 1.2 米）。
+  offset:
+    x: 0
+    y: 1.2
+    z: 0
+  # 文字缩放（x/y/z），各分量必须大于 0。
+  scale:
+    x: 0.5
+    y: 0.5
+    z: 0.5
+  # 文字显示区域（x 为宽度，y 为高度），必须大于 0。
+  display_size:
+    x: 1000
+    y: 1000
+  # 是否自动将文字水平朝向大厅出生点 lobby_spawn_position。
+  face_lobby_spawn: true
+  # 关闭自动朝向或与出生点水平重合时使用的欧拉角旋转（度）。
+  default_rotation:
+    x: 0
+    y: 0
+    z: 0
+  # 可选：覆盖硬币上方文字模板（支持富文本与 {scp}/{role}）；留空则自动使用 translations.yml 中的 coin_label_text_format。
+  text_format: ""
