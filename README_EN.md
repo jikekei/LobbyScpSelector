@@ -13,7 +13,7 @@
 ## Features
 
 - Ships with default coordinates for the lobby spawn, all 7 SCP coins, and label rotations, so it works out of the box without any config edits.
-- Uses the game's built-in `Player.SendHint` directly, with no EXILED or HintServiceMeow required.
+- Supports a pre-round waiting lobby and coin-based SCP selection, with in-game commands to set the lobby spawn and coin positions.
 - Spawns a `TextToy` role label above each coin. Moving a coin with `scpcoin` rotates the label to match where you are looking, removes the old spot, and saves `config.yml` right away.
 - Prioritizes players who picked a coin when the round starts, avoids duplicate SCPs until every role is taken, and disables `SCP-079` below `7` players by default.
 
